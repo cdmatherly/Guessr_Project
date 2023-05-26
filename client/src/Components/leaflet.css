@@ -1,0 +1,78 @@
+.leaflet-tooltip {
+    background-color: transparent ;
+    border: none;
+    text-shadow: 0 0 2px rgb(0, 0, 0);
+    color: transparent;
+    box-shadow: none;
+    padding: none;
+    background-size: ;
+}
+
+.leaflet-container {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-color: gold;
+    border-width: .1rem;
+}
+
+.leaflet-bar a {
+    background-color: rgb(218, 165, 32);
+}
+
+
+.leaflet-bar a:hover, .leaflet-bar a:focus {
+    background-color: rgb(240, 182, 37);
+}
+
+.leaflet-bar a.leaflet-disabled {
+    background-color: rgb(199, 172, 103);
+
+}
+
+#customControl {
+    margin: 0.75rem auto;
+    width: 90%;
+    float: none;
+    
+}
+
+.text-stroke {
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-color: 1px;
+    text-shadow: 1px 1px rgba(245, 245, 245, 0.5);
+}
+
+.expansions {
+    filter:grayscale(100%);
+}
+
+.expansions:hover {
+    filter:grayscale(0%);
+}
+
+html {
+    overflow: hidden;
+}
+
+
+@keyframes inAnimation {
+0% {
+    opacity: 0;
+    scale: 2;
+    visibility: hidden;
+}
+100% {
+    opacity: 1;
+    scale: 1;
+    visibility: visible;
+}
+}
+
+@keyframes outAnimation {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+    visibility: hidden;
+}
+}

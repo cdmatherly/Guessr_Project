@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: "Planewalker";
+    src: local("Planewalker"), url('./fonts/Planewalker/Planewalker.otf') format("opentype");
+}
