@@ -11,12 +11,12 @@ const ExpansionPick = (props) => {
     useEffect(() => {
         axios.get("https://localhost:7078/api/guessr/expansions")
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 setExpansions(res.data)
                 setIsLoading(false)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }, [])
     

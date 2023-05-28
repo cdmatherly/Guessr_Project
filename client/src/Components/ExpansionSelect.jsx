@@ -21,7 +21,7 @@ const ExpansionSelect = (props) => {
             dispatch({type: type})
             setIsSelected(!isSelected)
         } else {
-            console.log("No expansion matching name")
+            // console.log("No expansion matching name")
         }
     }
 

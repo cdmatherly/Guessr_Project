@@ -53,13 +53,13 @@ const gameReducer = (draft, action) => {
         function getLocations() {
             draft.locations = action.value
             draft.currentLocation = generateLocation();
-            console.log(draft.locations)
+            // console.log(draft.locations)
         }
         
         function generateLocation() {
-            console.log(draft.locations)
+            // console.log(draft.locations)
             const pickedLocation = draft.locations[0]
-            console.log(pickedLocation)
+            // console.log(pickedLocation)
             // console.log(draft.locations.splice(1))
             draft.locations = draft.locations.filter((location) => location.locationId != pickedLocation.locationId)
             return pickedLocation

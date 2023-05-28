@@ -65,7 +65,7 @@ const Leaflet = (props) => {
     
     const findName = (layer) => {
         const name = provinces.filter(province => province.layer == mapLevel)
-        console.log(name[0].name)
+        // console.log(name[0].name)
         return name[0].name
     }
 

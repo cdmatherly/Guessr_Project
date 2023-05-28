@@ -28,14 +28,14 @@ const Viewer = (props) => {
     useEffect(() => {
         axios.get(`https://localhost:7078/api/guessr/expansions/${1}/locations`)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 const locations = getRandomItems(res.data)
-                console.log(locations)
+                // console.log(locations)
                 dispatch({type: "getLocations", value: locations})
                 setIsLoading(false)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
     }, [])
 

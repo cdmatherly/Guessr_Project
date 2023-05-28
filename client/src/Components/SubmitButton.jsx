@@ -11,14 +11,14 @@ const SubmitButton = (props) => {
             if (distance <= 20000){
                 dispatch({type: "setPoints", value: 100})
                 setPoints(100)
-                console.log("You're in there!")
+                // console.log("You're in there!")
             } else {
                 dispatch({type: "setPoints", value: 50})
                 setPoints(50)
             }
         }
         setDistance(distance)
-        console.log(distance)
+        // console.log(distance)
         setIsMounted(true)
     }
 

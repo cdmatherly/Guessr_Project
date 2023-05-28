@@ -16,9 +16,9 @@ const PlayerMarker = (props) => {
     const mapEvents = useMapEvents({
         click(e) {
             if (!gameState.guess) {
-                console.log(Object.values(e.latlng))
+                // console.log(Object.values(e.latlng))
                 setPosition(e.latlng)
-                console.log("Distance: " + map.distance([e.latlng.lat, e.latlng.lng], [gameState.currentLocation.lat, gameState.currentLocation.lng]))
+                // console.log("Distance: " + map.distance([e.latlng.lat, e.latlng.lng], [gameState.currentLocation.lat, gameState.currentLocation.lng]))
             }
             // map.flyTo([0,0], 9)
             // map.addLayer(circle)
