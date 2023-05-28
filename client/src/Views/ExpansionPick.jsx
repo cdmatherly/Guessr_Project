@@ -9,7 +9,7 @@ const ExpansionPick = (props) => {
     const hasSelection = gameState.includeBaseGame || gameState.includeMorrowind || gameState.includeSummerset
 
     useEffect(() => {
-        axios.get("https://localhost:7078/api/guessr/expansions")
+        axios.get("http://localhost:5068/api/guessr/expansions")
             .then((res) => {
                 console.log(res)
                 setExpansions(res.data)
