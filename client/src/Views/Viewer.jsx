@@ -26,7 +26,7 @@ const Viewer = (props) => {
     const showDiv = useDelayUnmount(isMounted, 250)
 
     useEffect(() => {
-        axios.get(`http://localhost:5068/api/guessr/expansions/${1}/locations`)
+        axios.get(`https://localhost:7078/api/guessr/expansions/${1}/locations`)
             .then((res) => {
                 console.log(res)
                 const locations = getRandomItems(res.data)

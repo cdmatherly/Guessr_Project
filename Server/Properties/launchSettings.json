@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "api/guessr",
-      "applicationUrl": "http://localhost:5068",
+      "applicationUrl": "https://localhost:7078;http://localhost:5068",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
