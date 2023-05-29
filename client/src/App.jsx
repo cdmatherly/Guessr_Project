@@ -5,6 +5,7 @@ import Home from './Views/Home';
 import ExpansionPick from './Views/ExpansionPick';
 import Player from './Views/Player';
 import Info from './Views/Info';
+import NotFound from './Views/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route element={<Home />} path='/' />
         <Route element={<Player />} path='/play'/>
         <Route element={<Info />} path='/info' />
+        <Route element={<NotFound/>} path='/*'/>
       </Route>
     </Routes>
   );

@@ -40,6 +40,11 @@
     -webkit-text-stroke-color: 1px;
     text-shadow: 1px 1px rgba(245, 245, 245, 0.5);
 }
+.text-stroke-black {
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: 1px;
+    text-shadow: 1px 1px rgba(235, 235, 235, 0.5);
+}
 
 .expansions {
     filter:grayscale(100%);
