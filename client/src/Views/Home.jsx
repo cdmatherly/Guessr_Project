@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 const Home = (props) => {
     const [about, setAbout] = useState(false)
+
+    const rdmSide = Math.floor(Math.random() * 2)
+    const aboutIconStyle = rdmSide == 1 ? { left:`${Math.floor(Math.random() * 38)}rem` } : {right:`${Math.floor(Math.random() * 38)}rem`}
     
     return (
         // overflow-hidden not working -> added to leaflet.css
@@ -18,8 +21,9 @@ const Home = (props) => {
             </span>
             
             </Link>
-            <Link to="/info">
-            <img src={require('../static/raven_icon.png')} alt="Raven icon" className={"h-20 absolute right-20 bottom-0 translate-y-12 hover:translate-y-0 duration-100"} />
+            <Link to="/about">
+            <img src={require('../static/raven_icon.png')} alt="Raven icon" className={"h-20 absolute right-20 bottom-0 translate-y-12 hover:translate-y-0 duration-100"}
+            style={aboutIconStyle} />
             </Link>
             <div className="text-shadow shadow-black z-10 mb-2 md:absolute md:bottom-0 text-center w-full text-stone-400 text-sm font-myriad pointer-events-none font-sans font-semibold">THE ELDER SCROLLS ONLINE © 2014 - 2023 ZENIMAX MEDIA, INC. All Rights Reserved.</div>
         </div>
