@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9d58a136.css",
+    "main.js": "/static/js/main.fef28822.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/info_bg.mp4": "/static/media/info_bg.0292c7048de6dba4ade8.mp4",
+    "static/media/a4.jpg": "/static/media/a4.118aa37aaa1f552f4e32.jpg",
+    "static/media/a2.jpg": "/static/media/a2.9e8a8dd89721ea94ed53.jpg",
+    "static/media/gs1.jpg": "/static/media/gs1.1a4fe1f90e037173c480.jpg",
+    "static/media/a1.jpg": "/static/media/a1.5b2d16ee995f1050f302.jpg",
+    "static/media/gs2.jpg": "/static/media/gs2.0dde16acccc83fee7b9e.jpg",
+    "static/media/a3.jpg": "/static/media/a3.4fb05f590cef17aca25e.jpg",
+    "static/media/bg14.jpg": "/static/media/bg14.7e2a4cf55f5860a63a64.jpg",
+    "static/media/1.webp": "/static/media/1.26cd7c0faea215f6c5a1.webp",
+    "static/media/sample.jpg": "/static/media/sample.974961c25e9b4604eb87.jpg",
+    "static/media/basegame_logo.png": "/static/media/basegame_logo.9adc91f25b4985418538.png",
+    "static/media/eso_orouboros.png": "/static/media/eso_orouboros.2976e51647474d7978a3.png",
+    "static/media/tamriel.jpg": "/static/media/tamriel.57580df8542ddc1a7feb.jpg",
+    "static/media/greenshade.jpg": "/static/media/greenshade.d3b3c517598caacd9ecc.jpg",
+    "static/media/grahtwood.jpg": "/static/media/grahtwood.dbb0925ade696ce182fa.jpg",
+    "static/media/auridon.jpg": "/static/media/auridon.b191da3f48ef5aa366c8.jpg",
+    "static/media/2.webp": "/static/media/2.dcbfa92e06b207e947b6.webp",
+    "static/media/favicon.png": "/static/media/favicon.777a513047f80d1a91db.png",
+    "static/media/raven_icon.png": "/static/media/raven_icon.1447f2c050b4a51ed737.png",
+    "static/media/morrowind_logo.png": "/static/media/morrowind_logo.ee3973b4132ec8641c11.png",
+    "static/media/eso_summerset_orouboros.png": "/static/media/eso_summerset_orouboros.6052c52b6804066d5948.png",
+    "static/media/morrowind_logo_og.png": "/static/media/morrowind_logo_og.9b278f9ef6d30b7536e3.png",
+    "static/media/malabaltor.jpg": "/static/media/malabaltor.e10fbcff2b7813beced7.jpg",
+    "static/media/summerset_logo.png": "/static/media/summerset_logo.c64d20cd8b30958e9d34.png",
+    "static/media/ESO_logo.png": "/static/media/ESO_logo.9e1fa886e7ea23742b93.png",
+    "static/media/Planewalker.otf": "/static/media/Planewalker.d192fa3222fe9c341a1f.otf",
+    "static/media/marker.webp": "/static/media/marker.9d1304f6587c347d0e2d.webp",
+    "index.html": "/index.html",
+    "main.9d58a136.css.map": "/static/css/main.9d58a136.css.map",
+    "main.fef28822.js.map": "/static/js/main.fef28822.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9d58a136.css",
+    "static/js/main.fef28822.js"
+  ]
+}
