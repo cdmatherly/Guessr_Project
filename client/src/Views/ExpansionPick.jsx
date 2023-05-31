@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ExpansionSelect from '../Components/ExpansionSelect'
+import { ThreeDots } from 'react-loader-spinner'
 
 const ExpansionPick = (props) => {
     const { dispatch, gameState } = props
@@ -29,7 +30,9 @@ const ExpansionPick = (props) => {
             <div className="h-screen w-full absolute top-0 -z-10 bg-yellow-950/80 bg-">
             </div>
                 <div className="w-full flex justify-center h-1/5 gap-5">
-
+                    {isLoading && (
+                        <ThreeDots color="rgb(252, 182, 24)" ariaLabel="three-dots-loading"/>
+                    )}
 
                     {!isLoading && (
                         expansions.map((expansion) => 
