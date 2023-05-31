@@ -5,7 +5,7 @@ const Navbar = (props) => {
     <nav className="bg-white border-gray-200 dark:bg-gray-900  top-0 w-full z-10 shadow-black/50 shadow-lg">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link to="/" className="flex items-center">
-                <img src={require('../static/favicon.png')} className="h-8 mr-3 " alt="NirnGuessr Logo" />
+                <img src={require('../static/favicon.webp')} className="h-8 mr-3 " alt="NirnGuessr Logo" />
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">NirnGuessr</span>
             </Link>
             <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
