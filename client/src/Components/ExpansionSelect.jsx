@@ -36,7 +36,7 @@ const ExpansionSelect = (props) => {
             disabled={expansion.isAvailable ? false : true} 
             style={ expansion.isAvailable? isSelected? {filter:'grayscale(0%)'} : {} : {filter:'grayscale(100%)'} }
             >
-                <img src={require(`../static/expansions/${expansion.logoUrl}.png`)} alt="" className=" h-5/6" />
+                <img src={require(`../static/expansions/${expansion.logoUrl}.webp`)} alt="" className=" h-5/6" />
                 {!expansion.isAvailable && (
                     <span className="italic font-thin text-gray-600 absolute bottom-0 ">Coming soon!</span>
                 )}
