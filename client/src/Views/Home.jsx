@@ -22,19 +22,19 @@ const Home = (props) => {
             
             </Link>
             <Link to="/about">
-            <img src={require('../static/raven_icon.webp')} alt="Raven icon" className={"h-20 z-20 absolute right-20 bottom-0 translate-y-12 hover:translate-y-0 duration-100"}
+            <img src={require('../static/raven_icon.webp')} alt="Raven icon" className={"h-20 z-20 absolute right-20 bottom-0 translate-y-12 hover:translate-y-0 duration-100 invisible sm:visible"}
             style={aboutIconPosition} />
             </Link>
-            <div className="absolute right-10 bottom-14 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-r-yellow-600 border-b-yellow-600 border-t-yellow-700 border-l-yellow-700 border-double  w-1/4 h-1/4 px-4 py-3 text-stone-300">
-                <div className="text-2xl ">Dev Notes:</div>
+            <div className="absolute right-10 bottom-14 sm:right-10 sm:bottom-14 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-r-yellow-600 border-b-yellow-600 border-t-yellow-700 border-l-yellow-700 border-double  sm:w-1/4 sm:h-1/4 px-4 py-3 text-stone-300 overflow-y-auto">
+                <div className="lg:text-2xl 3xl:text-3xl">Dev Notes:</div>
                 <hr className="mb-2" />
-                <div className="text-lg">Current:</div>
-                <div className="text-lg">- Finish Aldmeri Dominion locations</div>
-                <div className="text-lg">To Do:</div>
-                <div className="text-lg">- Add other alliance locations</div>
-                <div className="text-lg">- Move on to next chapters</div>
+                <div className="lg:text-lg 3xl:text-2xl">Current:</div>
+                <div className="lg:text-lg 3xl:text-2xl">- Finish Aldmeri Dominion locations</div>
+                <div className="lg:text-lg 3xl:text-2xl">To Do:</div>
+                <div className="lg:text-lg 3xl:text-2xl">- Add other alliance locations</div>
+                <div className="lg:text-lg 3xl:text-2xl">- Move on to next chapters</div>
             </div>
-            <div className="text-shadow shadow-black z-10 mb-2 md:absolute md:bottom-0 text-center w-full text-stone-400 text-sm font-myriad pointer-events-none font-sans font-semibold">THE ELDER SCROLLS ONLINE © 2014 - 2023 ZENIMAX MEDIA, INC. All Rights Reserved.</div>
+            <div className="text-shadow shadow-black z-10 mb-2 absolute bottom-0 text-center w-full text-stone-400 text-sm font-myriad pointer-events-none font-sans font-semibold">THE ELDER SCROLLS ONLINE © 2014 - 2023 ZENIMAX MEDIA, INC. All Rights Reserved.</div>
         </div>
 
     )

@@ -29,7 +29,7 @@ const ExpansionPick = (props) => {
             </div>
             <div className="h-screen w-full absolute top-0 -z-10 bg-yellow-950/80 bg-">
             </div>
-                <div className="w-full flex justify-center h-1/5 gap-5">
+                <div className="w-full grid sm:flex justify-center sm:h-1/5 gap-5">
                     {isLoading && (
                         <ThreeDots color="rgb(252, 182, 24)" ariaLabel="three-dots-loading"/>
                     )}
