@@ -16,7 +16,7 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetAll()
         {
-            return await db.Locations.ToListAsync();
+            return await db.Locations.Include(l => l.Expansion).Include(l => l.Alliance).Include(l => l.Zone).ToListAsync();
         }
 
         [HttpGet("locations")]
@@ -35,6 +35,12 @@ namespace Server.Controllers
         public async Task<ActionResult<IEnumerable<Alliance>>> GetAlliances()
         {
             return await db.Alliances.ToListAsync();
+        }
+
+        [HttpGet("zones")]
+        public async Task<ActionResult<IEnumerable<Zone>>> GetZones()
+        {
+            return await db.Zones.ToListAsync();
         }
 
         [HttpGet("locations/{LocationId}")]
@@ -61,6 +67,19 @@ namespace Server.Controllers
             return Expansion;
         }
 
+        [HttpGet("zone/{zoneId}")]
+        public async Task<ActionResult<Zone>> GetZone(int zoneId)
+        {
+            Zone? Zone = await db.Zones.FirstOrDefaultAsync(e => e.ZoneId == zoneId);
+            Console.WriteLine(Zone);
+            
+            if (Zone == null)
+            {
+                return NotFound();
+            }
+            return Zone;
+        }
+
         [HttpGet("expansions/{expansionId}/locations")]
         public async Task<ActionResult<List<Location>>> GetExpansionWithLocations(int expansionId)
         {
@@ -68,7 +87,7 @@ namespace Server.Controllers
             Random rdm = new Random();
             int AmountToSkip = rdm.Next(0, LocationCount.Count);
             // List<Location>? Locations = await db.Locations.Skip(AmountToSkip).Take(5).Where(l => l.ExpansionId == expansionId).ToListAsync();
-            List<Location>? Locations = await db.Locations.Where(l => l.ExpansionId == expansionId).ToListAsync();
+            List<Location>? Locations = await db.Locations.Include(l => l.Zone).Where(l => l.ExpansionId == expansionId).ToListAsync();
             if (Locations == null)
             {
                 return NotFound();
@@ -133,6 +152,21 @@ namespace Server.Controllers
                 await db.SaveChangesAsync();
                 // This uses the Get route we wrote above
                 return newAlliance;
+            } else {
+                // This is what will allow us to get error messages for our front end
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPost("zones")]
+        public async Task<ActionResult<Zone>> PostZone([FromBody] Zone newZone)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Zones.Add(newZone);
+                await db.SaveChangesAsync();
+                // This uses the Get route we wrote above
+                return newZone;
             } else {
                 // This is what will allow us to get error messages for our front end
                 return BadRequest(ModelState);

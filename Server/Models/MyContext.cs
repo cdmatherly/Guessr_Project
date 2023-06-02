@@ -8,4 +8,5 @@ public class MyContext : DbContext
     public DbSet<Location> Locations { get; set; } = null!;
     public DbSet<Expansion> Expansions { get; set; } = null!;
     public DbSet<Alliance> Alliances { get; set; } = null!;
+    public DbSet<Zone> Zones { get; set; } = null!;
 }

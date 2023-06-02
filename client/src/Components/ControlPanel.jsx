@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const ControlPanel = (props) => {
-    const { changeLayer, setPosition, provinces } = props
+    const { changeLayer, setPosition, zones } = props
 
     const showDropdown = () => {
         const dropdown = document.getElementById("dropdown");
@@ -32,9 +32,9 @@ const ControlPanel = (props) => {
                 </button>
                 <div id="dropdown" className="z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-fit bg-gray-700">
                     <ul className="py-2 text-sm text-gray-200" aria-labelledby="multiLevelDropdownButton">
-                    {provinces.map((province, idx) => 
+                    {zones.map((zone, idx) => 
                     <li key={idx}>
-                        <button onClick={(e) => { changeLayer(province.layer)} } className="block px-4 py-2 hover:bg-gray-600 hover:text-white w-full text-center">{province.name}</button>
+                        <button onClick={(e) => { changeLayer(zone.shortName)} } className="block px-4 py-2 hover:bg-gray-600 hover:text-white w-full text-center">{zone.name}</button>
                     </li>
                     )}
                     {/* <li>

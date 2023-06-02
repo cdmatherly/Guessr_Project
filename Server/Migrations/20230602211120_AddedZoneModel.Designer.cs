@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Models;
 
@@ -10,9 +11,10 @@ using Server.Models;
 namespace Server.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20230602211120_AddedZoneModel")]
+    partial class AddedZoneModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +102,11 @@ namespace Server.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ZoneId")
+                    b.Property<string>("ZoneId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ZoneId1")
                         .HasColumnType("int");
 
                     b.HasKey("LocationId");
@@ -109,7 +115,7 @@ namespace Server.Migrations
 
                     b.HasIndex("ExpansionId");
 
-                    b.HasIndex("ZoneId");
+                    b.HasIndex("ZoneId1");
 
                     b.ToTable("locations");
                 });
@@ -123,11 +129,11 @@ namespace Server.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<double>("Lat")
-                        .HasColumnType("double");
+                    b.Property<int>("Lat")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Lng")
-                        .HasColumnType("double");
+                    b.Property<int>("Lng")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -161,9 +167,7 @@ namespace Server.Migrations
 
                     b.HasOne("Server.Models.Zone", "Zone")
                         .WithMany("Locations")
-                        .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ZoneId1");
 
                     b.Navigation("Alliance");
 

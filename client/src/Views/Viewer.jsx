@@ -74,7 +74,7 @@ const Viewer = (props) => {
             {gameState.guess && showDiv && (
                 <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center duration-150' style={ (gameState.guess && isMounted) ? mountedStyle: unmountedStyle }>
                     <div className='mx-auto w-1/4 bg-slate-500 h-fit flex flex-col items-center justify-around rounded-3xl shadow-lg shadow-black/50 bg-opacity-90 py-10 gap-3 text-center'>
-                        {gameState.guess.zone === gameState.currentLocation.zone ? 
+                        {gameState.guess.zone === gameState.currentLocation.zone.shortName ? 
                         distance <= 20000 ?
                             <>
                                 <span className='text-2xl font-semibold'>You got the exact location!</span>

@@ -7,7 +7,7 @@ const SubmitButton = (props) => {
     function handleGuess() {
         dispatch({type:"submitGuess", value: {position: position, zone: mapLevel} })
         const distance = map.distance([position.lat, position.lng], [gameState.currentLocation.lat, gameState.currentLocation.lng])
-        if (mapLevel === gameState.currentLocation.zone) {
+        if (mapLevel === gameState.currentLocation.zone.shortName) {
             if (distance <= 20000){
                 dispatch({type: "setPoints", value: 100})
                 setPoints(100)

@@ -7,8 +7,8 @@ const LocationReveal = (props) => {
     const map = useMap();
 
     useEffect(() => {
-        if (mapLevel !== gameState.currentLocation.zone) {
-            setMapLevel(gameState.currentLocation.zone)
+        if (mapLevel !== gameState.currentLocation.zone.shortName) {
+            setMapLevel(gameState.currentLocation.zone.shortName)
             setTimeout(() => {setPosition(null)}, 1)
         }
         map.flyTo([gameState.currentLocation.lat, gameState.currentLocation.lng], 9)

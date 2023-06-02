@@ -22,18 +22,17 @@ namespace Server.Models
         [Required]
         public string PhotosphereUrl { get; set; }
 
-        [Required]
-        public string Zone { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        [Required]
+        public int ZoneId { get; set; }
+        public Zone? Zone { get; set; }
+
         public int ExpansionId { get; set; }
 
         public Expansion? Expansion { get; set; }
 
-        [Required]
         public int AllianceId { get; set; }
         
         public Alliance? Alliance { get; set; }

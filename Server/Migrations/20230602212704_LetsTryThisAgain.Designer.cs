@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Models;
 
@@ -10,9 +11,10 @@ using Server.Models;
 namespace Server.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20230602212704_LetsTryThisAgain")]
+    partial class LetsTryThisAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +102,11 @@ namespace Server.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ZoneId")
+                    b.Property<string>("ZoneId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ZoneId1")
                         .HasColumnType("int");
 
                     b.HasKey("LocationId");
@@ -109,7 +115,7 @@ namespace Server.Migrations
 
                     b.HasIndex("ExpansionId");
 
-                    b.HasIndex("ZoneId");
+                    b.HasIndex("ZoneId1");
 
                     b.ToTable("locations");
                 });
@@ -161,9 +167,7 @@ namespace Server.Migrations
 
                     b.HasOne("Server.Models.Zone", "Zone")
                         .WithMany("Locations")
-                        .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ZoneId1");
 
                     b.Navigation("Alliance");
 

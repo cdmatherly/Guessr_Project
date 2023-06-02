@@ -1,17 +1,23 @@
-
 #pragma warning disable CS8618
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Models
 {
-    [Table("alliances")]
-    public class Alliance
+    [Table("zones")]
+    public class Zone
     {
         [Key]
-        public int AllianceId { get; set; }
+        public int ZoneId { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string ShortName { get; set; }
+        [Required]
+        public double Lat { get; set; }
+        [Required]
+        public double Lng { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         [NotMapped]
