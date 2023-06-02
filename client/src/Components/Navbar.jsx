@@ -6,7 +6,7 @@ const Navbar = (props) => {
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link to="/" className="flex items-center">
                 <img src={require('../static/favicon.webp')} className="h-8 mr-3 " alt="NirnGuessr Logo" />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">NirnGuessr</span>
+                <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Nirn<span className="bg-clip-text text-transparent bg-gradient-to-l to-yellow-500 from-yellow-700">Guessr</span></span>
             </Link>
             <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
             <span className="sr-only">Open main menu</span>
