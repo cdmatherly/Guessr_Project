@@ -4,7 +4,17 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        expand: {
+          "0%, 100%": { transform: "scale(105%)" },
+          "50%": { transform: "scale(95%)" }
+        }
+      },
+      animation: {
+        expand: "expand 100ms ease-in-out"
+      }
+    },
     screens: {
       'sm': '640px',
       'md': '768px',
