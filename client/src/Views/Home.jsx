@@ -13,7 +13,21 @@ const Home = (props) => {
             </div>
             <div className="h-screen w-full absolute top-0 -z-10 bg-yellow-950/80 bg-">
             </div>
-            <p className="text-center font-bold text-4xl text-stroke -mt-20">Start Playing</p>
+            <div className="text-center font-bold text-4xl text-stroke -mt-20 cursor-default">
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">S</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">t</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">a</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">r</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">t</span>
+                <span> </span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">P</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">l</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">a</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">y</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">i</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">n</span>
+                <span className="hover:text-yellow-500 transition-all duration-100 ease-in-out">g</span>
+            </div>
             <Link to="/play" className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-xl group bg-gradient-to-br from-yellow-600 to-yellow-500 group-hover:from-yellow-300 group-hover:via-yellow-400 group-hover:to-yellow-400 text-white hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-yellow-500">
             <span className="relative px-4 py-1.5 transition-all ease-in duration-150 bg-gray-900 rounded-xl group-hover:bg-opacity-0 text-lg">
                 Play
