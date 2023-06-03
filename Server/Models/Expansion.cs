@@ -16,7 +16,7 @@ namespace Server.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        [NotMapped]
+        // [NotMapped]
         public List<Location> Locations { get; set; } = new List<Location>();
     }
 }

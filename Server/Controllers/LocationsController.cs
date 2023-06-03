@@ -22,13 +22,13 @@ namespace Server.Controllers
         [HttpGet("locations")]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
         {
-            return await db.Locations.ToListAsync();
+            return await db.Locations.Include(l => l.Zone).ToListAsync();
         }
 
         [HttpGet("expansions")]
         public async Task<ActionResult<IEnumerable<Expansion>>> GetExpansions()
         {
-            return await db.Expansions.ToListAsync();
+            return await db.Expansions.Include(e => e.Locations).ThenInclude(l => l.Zone).ToListAsync();
         }
 
         [HttpGet("alliances")]

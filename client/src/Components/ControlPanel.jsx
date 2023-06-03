@@ -12,9 +12,11 @@ const ControlPanel = (props) => {
         doubleDropdown && doubleDropdown.classList.toggle("hidden") 
     }
 
+    const filteredZones = zones.filter(zone => zone.name != 'Tamriel')
+    const tamriel = zones.find(zone => zone.name == 'Tamriel')
 
     return (
-        <div className="flex flex-col absolute top-0 -left-28 items-end">
+        <div className="flex flex-col absolute top-0 -left-28 items-start">
             <div className="">
                 <button id="multiLevelDropdownButton" data-dropdown-toggle="dropdown" onClick={(e) => {changeLayer("tamriel")} } className="text-white font-medium text-sm  text-center inline-flex items-center justify-end  h-1/6 w-28" type="button">
                     <div className="focus:ring-4 focus:outline-none bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-700 rounded-lg px-4 py-2.5">
@@ -24,15 +26,18 @@ const ControlPanel = (props) => {
                     </div>
                 </button>
             </div>
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-start">
                 <button id="multiLevelDropdownButton" data-dropdown-toggle="dropdown" onClick={(e) => {showDropdown(e)} } className="text-white font-medium text-sm  text-center inline-flex items-center justify-end  h-1/6 w-28" type="button">
                     <div className="focus:ring-4 focus:outline-none bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-700 rounded-lg px-4 py-2.5">
                         <svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </button>
-                <div id="dropdown" className="z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-fit bg-gray-700">
+                <div id="dropdown" className="z-10 hidden divide-y divide-gray-100 rounded-lg shadow bg-gray-700">
                     <ul className="py-2 text-sm text-gray-200" aria-labelledby="multiLevelDropdownButton">
-                    {zones.map((zone, idx) => 
+                    <li>
+                        <button onClick={(e) => { changeLayer(tamriel.shortName)} } className="block px-4 py-2 hover:bg-gray-600 hover:text-white w-full text-center">{tamriel.name}</button>
+                    </li>
+                    {filteredZones.map((zone, idx) => 
                     <li key={idx}>
                         <button onClick={(e) => { changeLayer(zone.shortName)} } className="block px-4 py-2 hover:bg-gray-600 hover:text-white w-full text-center">{zone.name}</button>
                     </li>

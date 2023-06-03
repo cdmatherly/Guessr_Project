@@ -26,10 +26,12 @@ const Viewer = (props) => {
     const showDiv = useDelayUnmount(isMounted, 250)
 
     useEffect(() => {
-        axios.get(`https://localhost:7078/api/guessr/expansions/${1}/locations`)
+        axios.get(`https://localhost:7078/api/guessr/expansions/`)
             .then((res) => {
-                // console.log(res)
-                const locations = getRandomItems(res.data)
+                console.log(res)
+                const selectedExpansions = res.data.filter(expansion => expansion.name == (gameState.includeBaseGame && `Base Game`) || expansion.name == (gameState.includeMorrowind && (`Morrowind`)) || expansion.name == (gameState.includeSummerset && ('Summerset')) )
+                console.log(selectedExpansions)
+                const locations = getRandomLocations(selectedExpansions)
                 // console.log(locations)
                 dispatch({type: "getLocations", value: locations})
                 setIsLoading(false)
@@ -46,18 +48,23 @@ const Viewer = (props) => {
         setIsLoading(false)
     }
 
-    const getRandomItems = (arr) => {
-        const itemList = []
-        while (itemList.length != 5){
+    const getRandomLocations = (expansions) => {
+        let arr = []
+        for (const expansion of expansions){
+            arr = arr.concat(expansion.locations)
+        }
+        // console.log(arr)
+        const locationList = []
+        while (locationList.length != 5){
             const rdmIdx = Math.floor(Math.random() * arr.length)
-            let item = arr[rdmIdx]
-            if (itemList.includes(item)) {
+            let location = arr[rdmIdx]
+            if (locationList.includes(location)) {
                 continue
             } else {
-                itemList.push(item)
+                locationList.push(location)
             }
         }
-        return itemList
+        return locationList
     }
 
     const mountedStyle = { animation: "inAnimation 250ms cubic-bezier(0.950, 0.050, 0.795, 0.035)" };
