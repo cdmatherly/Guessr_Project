@@ -63,7 +63,7 @@ const ExpansionPick = (props) => {
                     </div> */}
                     <div className="flex justify-center relative w-full">
                         { !hasSelection && (
-                            <span className="absolute text-red-400 -top-8">Please select an expansion</span>
+                            <span className="absolute text-red-400 -top-8 whitespace-nowrap">Please select an expansion</span>
                             ) }
                         <button onClick={() => dispatch({type: "startPlaying"}) } type="button" className={`text-gray-900 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-gradient-to-b focus:ring-4 focus:outline-none focus:ring-yellow-400 font-medium rounded-3xl text-md px-5 py-2.5 text-center disabled:from-slate-500 disabled:to-slate-600 disabled:bg-gradient-to-r ` } style={{transition:'500ms ease'}} disabled={hasSelection ? false : true }>Play</button>
                     </div>

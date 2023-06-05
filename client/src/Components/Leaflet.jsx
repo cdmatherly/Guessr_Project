@@ -8,12 +8,12 @@ import SubmitButton from './SubmitButton';
 import { MapContainer, ImageOverlay, Marker, Tooltip, Polyline} from 'react-leaflet'
 import { Icon } from 'leaflet'
 import LocationReveal from './LocationReveal'
+import { ForDevice, useMediaQuery } from 'media-query-react';
 
 
 const Leaflet = (props) => {
-    const { dispatch, gameState, setDistance, setPoints, setIsMounted } = props;
+    const { dispatch, gameState, setDistance, setPoints, setIsMounted, mapSize, setMapSize } = props;
     const mapElement = useRef();
-    const [mapSize, setMapSize] = useState({})
     const [mapLevel, setMapLevel] = useState("tamriel")
     const [position, setPosition] = useState(null)
     const [map, setMap] = useState(null)
@@ -21,14 +21,19 @@ const Leaflet = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const bounds = [[-10,-10], [10, 10]]
     const icon = new Icon({iconUrl: require("../static/maps/marker.webp"), iconSize:[32,32], iconAnchor:[16,33]})
+    const isDesktop = useMediaQuery({query: 'min-width: 1024px'})
 
     const increaseMapSize = (e) => {
         setMapSize({})
     }
+
     const decreaseMapSize = (e) => {
-        !gameState.guess && (
-            setMapSize({transform:"scale(0.5) translateZ(0px)", opacity:"0.5", transitionDelay:"175ms"})
-        )
+        isDesktop? (!gameState.guess && (
+            setMapSize({transform:"scale(0.5) translateZ(0px)", opacity:"0.5", transitionDelay:"250ms"})
+        )):
+        (!gameState.guess && (
+            setMapSize({transform:"translateY(1000px)", opacity:"0.5"})
+        ))
     }
 
     const changeLayer = (value) => {
@@ -50,38 +55,13 @@ const Leaflet = (props) => {
             })
     }, [])
 
-    // const zones = [
-    //     {
-    //         name: "Tamriel",
-    //         coordinates: [-100, -100],
-    //         layer: "tamriel"
-    //     },
-    //     {
-    //         name: 'Auridon',
-    //         coordinates: [-3.75,-5.75],
-    //         layer: 'auridon'
-    //     },
-    //     {
-    //         name: 'Grahtwood',
-    //         coordinates: [-4.75,-2],
-    //         layer: 'grahtwood'
-    //     },
-    //     {
-    //         name: 'Greenshade',
-    //         coordinates: [-4.5,-3.8],
-    //         layer: 'greenshade'
-    //     },
-    //     {
-    //         name: "Malabal Tor",
-    //         coordinates: [-3.25, -2.55],
-    //         layer: "malabaltor"
-    //     },
-    //     {
-    //         name: "Reaper's March",
-    //         coordinates: [-2.55, -1.1],
-    //         layer: "reapersmarch"
-    //     }
-    // ] 
+    const handleMouseEnter = (e) => {
+        isDesktop && increaseMapSize(e)
+    }
+
+    const handleMouseLeave = (e) => {
+        isDesktop && decreaseMapSize(e)
+    }
     
     const findName = (layer) => {
         const name = zones.filter(zone => zone.shortName == mapLevel)
@@ -89,11 +69,17 @@ const Leaflet = (props) => {
     }
 
     return (
-        !isLoading && (<>
-            <div className='absolute right-8 bottom-6 duration-200 origin-bottom-right flex rounded-xl' style={{ ...mapSize}} onMouseEnter={(e) => increaseMapSize(e)} onMouseLeave={(e) => decreaseMapSize(e)}>
-                <div style={{height:"30rem", width:"30rem"}}>
+        !isLoading && (
+        <>
+            <div className='absolute bottom-0 w-11/12 h-2/5 sm:w-1/4 sm:right-8 sm:bottom-6 sm:duration-200 duration-300 origin-bottom-right flex rounded-xl' style={{ ...mapSize}} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)}>
+                <div className='h-full w-full'>
+                    <button className='bg-slate-700/90 text-yellow-400 p-2 rounded-2xl sm:hidden absolute left-1/2 -translate-x-1/2 -top-8 border border-yellow-600 w-20 flex justify-center' style={{zIndex:'500'}} onClick={(e) => decreaseMapSize(e)}>
+                        <svg className='h-5' data-darkreader-inline-stroke="" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"></path>
+                        </svg>
+                    </button>
                     <ControlPanel changeLayer={changeLayer} setPosition={setPosition} zones={zones}></ControlPanel>
-                    <MapContainer ref={mapElement} center={[0, 0]} zoom={5} maxZoom={9} minZoom={5} scrollWheelZoom={true} className='h-full w-full rounded-b-3xl rounded-tr-3xl rounded-tl-xl shadow-md shadow-gray-800 bg-transparent' maxBounds={[[-12,-12], [12,12]]} maxBoundsViscosity={.5} zoomControl={true} attributionControl={false}>
+                    <MapContainer ref={mapElement} center={[0, 0]} zoom={5} maxZoom={9} minZoom={5} scrollWheelZoom={true} className='h-full w-full rounded-b-3xl rounded-tr-3xl rounded-tl-xl shadow-md shadow-gray-800 ' maxBounds={[[-12,-12], [12,12]]} maxBoundsViscosity={.5} zoomControl={true} attributionControl={false}>
                         <ImageOverlay url={require(`../static/maps/${mapLevel}.jpg`)} bounds={bounds}/>
                         {mapLevel == "tamriel" ?
                             <>
@@ -104,7 +90,8 @@ const Leaflet = (props) => {
                                     </Tooltip>
                                 </Marker>
                                 ) }
-                            </> : <PlayerMarker position={position} setPosition={setPosition} icon={icon} gameState={gameState} setMap={setMap}>
+                            </> :
+                            <PlayerMarker position={position} setPosition={setPosition} icon={icon} gameState={gameState} setMap={setMap}>
                         </PlayerMarker>
                             }
                             { gameState.guess && (
