@@ -31,9 +31,7 @@ const Leaflet = (props) => {
         isDesktop? (!gameState.guess && (
             setMapSize({transform:"scale(0.5) translateZ(0px)", opacity:"0.5", transitionDelay:"250ms"})
         )):
-        (!gameState.guess && (
-            setMapSize({transform:"translateY(1000px)", opacity:"0.5"})
-        ))
+        setMapSize({transform:"translateY(1000px)", opacity:"0.5"})
     }
 
     const changeLayer = (value) => {
@@ -71,22 +69,22 @@ const Leaflet = (props) => {
     return (
         !isLoading && (
         <>
-            <div className='absolute bottom-0 w-11/12 h-2/5 sm:w-1/4 sm:right-8 sm:bottom-6 sm:duration-200 duration-300 origin-bottom-right flex rounded-xl' style={{ ...mapSize}} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)}>
-                <div className='h-full w-full'>
-                    <button className='bg-slate-700/90 text-yellow-400 p-2 rounded-2xl sm:hidden absolute left-1/2 -translate-x-1/2 -top-8 border border-yellow-600 w-20 flex justify-center' style={{zIndex:'500'}} onClick={(e) => decreaseMapSize(e)}>
+            <div className='absolute bottom-0 flex w-11/12 duration-300 origin-bottom-right h-2/5 sm:w-2/5 lg:w-1/4 sm:right-8 sm:bottom-6 sm:duration-200 rounded-xl' style={{ ...mapSize}} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)}>
+                <div className='w-full h-full'>
+                    <button className='absolute flex justify-center w-20 p-2 text-yellow-400 -translate-x-1/2 border border-yellow-600 bg-slate-700/90 rounded-2xl sm:hidden left-1/2 -top-8' style={{zIndex:'500'}} onClick={(e) => decreaseMapSize(e)}>
                         <svg className='h-5' data-darkreader-inline-stroke="" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"></path>
                         </svg>
                     </button>
                     <ControlPanel changeLayer={changeLayer} setPosition={setPosition} zones={zones}></ControlPanel>
-                    <MapContainer ref={mapElement} center={[0, 0]} zoom={5} maxZoom={9} minZoom={5} scrollWheelZoom={true} className='h-full w-full rounded-b-3xl rounded-tr-3xl rounded-tl-xl shadow-md shadow-gray-800 ' maxBounds={[[-12,-12], [12,12]]} maxBoundsViscosity={.5} zoomControl={true} attributionControl={false}>
+                    <MapContainer ref={mapElement} center={[0, 0]} zoom={5} maxZoom={9} minZoom={5} scrollWheelZoom={true} className='w-full h-full shadow-md rounded-b-3xl rounded-tr-3xl rounded-tl-xl shadow-gray-800 ' maxBounds={[[-12,-12], [12,12]]} maxBoundsViscosity={.5} zoomControl={true} attributionControl={false}>
                         <ImageOverlay url={require(`../static/maps/${mapLevel}.jpg`)} bounds={bounds}/>
                         {mapLevel == "tamriel" ?
                             <>
                                 {zones.map((zone, idx) =>
                                 <Marker key={idx} position={[zone.lat, zone.lng]} interactive={false} opacity={0}>
                                     <Tooltip direction='center' offset={[0,0]} permanent interactive={true}  className='bg-transparent' >
-                                        <span onClick={(e) => changeLayer(zone.shortName)}  className='text-yellow-300 font-serif font-bold hover:text-yellow-200 ' id={zone.name}>{zone.name}</span>
+                                        <span onClick={(e) => changeLayer(zone.shortName)}  className='font-serif font-bold text-yellow-300 hover:text-yellow-200 ' id={zone.name}>{zone.name}</span>
                                     </Tooltip>
                                 </Marker>
                                 ) }
@@ -104,8 +102,8 @@ const Leaflet = (props) => {
                             )}
                     </MapContainer>
                     <div className='w-full leaflet-top leaflet-right'>
-                        <div className='mx-auto w-40'>
-                            <span className='block text-center text-xl mt-2 text-stroke'>{findName()}</span>
+                        <div className='w-40 mx-auto'>
+                            <span className='block mt-2 text-xl text-center text-stroke'>{findName()}</span>
                         </div>
                     </div>
                     <SubmitButton position={position} mapLevel={mapLevel} dispatch={dispatch} gameState={gameState} map={map} setDistance={setDistance} setPoints={setPoints} setIsMounted={setIsMounted}></SubmitButton>
