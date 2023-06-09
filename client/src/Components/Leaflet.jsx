@@ -45,7 +45,8 @@ const Leaflet = (props) => {
         axios.get(`https://localhost:7078/api/guessr/zones`)
             .then((res) => {
                 console.log(res.data)
-                setZones(res.data)
+                //! Remove filters after adding DC zones
+                setZones(res.data.filter(z => z.zoneId !== 8).filter(z => z.zoneId !== 7))
                 setIsLoading(false)
             })
             .catch((err) => {

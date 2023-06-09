@@ -30,7 +30,7 @@ const Viewer = (props) => {
     useEffect(() => {
         axios.get(`https://localhost:7078/api/guessr/expansions/`)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 const selectedExpansions = res.data.filter(expansion => expansion.name == (gameState.includeBaseGame && `Base Game`) || expansion.name == (gameState.includeMorrowind && (`Morrowind`)) || expansion.name == (gameState.includeSummerset && ('Summerset')) )
                 console.log(selectedExpansions)
                 const locations = getRandomLocations(selectedExpansions)
@@ -60,7 +60,9 @@ const Viewer = (props) => {
         while (locationList.length != 5){
             const rdmIdx = Math.floor(Math.random() * arr.length)
             let location = arr[rdmIdx]
-            if (locationList.includes(location)) {
+            // If location already present OR location is from GOLD COAST
+            //! Remove second OR when DC maps complete
+            if (locationList.includes(location) || location.zoneId === 7 || location.zoneId === 8) {
                 continue
             } else {
                 locationList.push(location)

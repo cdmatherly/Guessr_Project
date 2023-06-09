@@ -40,7 +40,7 @@ namespace Server.Controllers
         [HttpGet("zones")]
         public async Task<ActionResult<IEnumerable<Zone>>> GetZones()
         {
-            return await db.Zones.ToListAsync();
+            return await db.Zones.OrderBy(z => z.Name).ToListAsync();
         }
 
         [HttpGet("locations/{LocationId}")]
