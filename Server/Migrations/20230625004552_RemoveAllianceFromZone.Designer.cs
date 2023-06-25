@@ -11,8 +11,8 @@ using Server.Models;
 namespace Server.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230525190728_ExpansionLogo")]
-    partial class ExpansionLogo
+    [Migration("20230625004552_RemoveAllianceFromZone")]
+    partial class RemoveAllianceFromZone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,7 +39,7 @@ namespace Server.Migrations
 
                     b.HasKey("AllianceId");
 
-                    b.ToTable("Alliances");
+                    b.ToTable("alliances");
                 });
 
             modelBuilder.Entity("Server.Models.Expansion", b =>
@@ -67,16 +67,13 @@ namespace Server.Migrations
 
                     b.HasKey("ExpansionId");
 
-                    b.ToTable("Expansions");
+                    b.ToTable("expansions");
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
                 {
                     b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AllianceId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -102,41 +99,82 @@ namespace Server.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Zone")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("int");
 
                     b.HasKey("LocationId");
 
-                    b.HasIndex("AllianceId");
-
                     b.HasIndex("ExpansionId");
 
-                    b.ToTable("Locations");
+                    b.HasIndex("ZoneId");
+
+                    b.ToTable("locations");
+                });
+
+            modelBuilder.Entity("Server.Models.Zone", b =>
+                {
+                    b.Property<int>("ZoneId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllianceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Lng")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("ZoneId");
+
+                    b.HasIndex("AllianceId");
+
+                    b.ToTable("zones");
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
                 {
-                    b.HasOne("Server.Models.Alliance", "Alliance")
-                        .WithMany("Locations")
-                        .HasForeignKey("AllianceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Server.Models.Expansion", "Expansion")
                         .WithMany("Locations")
                         .HasForeignKey("ExpansionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Alliance");
+                    b.HasOne("Server.Models.Zone", "Zone")
+                        .WithMany()
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Expansion");
+
+                    b.Navigation("Zone");
                 });
 
-            modelBuilder.Entity("Server.Models.Alliance", b =>
+            modelBuilder.Entity("Server.Models.Zone", b =>
                 {
-                    b.Navigation("Locations");
+                    b.HasOne("Server.Models.Alliance", "Alliance")
+                        .WithMany()
+                        .HasForeignKey("AllianceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Alliance");
                 });
 
             modelBuilder.Entity("Server.Models.Expansion", b =>

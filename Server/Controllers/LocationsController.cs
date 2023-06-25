@@ -16,7 +16,7 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetAll()
         {
-            return await db.Locations.Include(l => l.Expansion).Include(l => l.Alliance).Include(l => l.Zone).ToListAsync();
+            return await db.Locations.Include(l => l.Zone).ThenInclude(z => z.Expansion).ToListAsync();
         }
 
         [HttpGet("locations")]
@@ -28,7 +28,7 @@ namespace Server.Controllers
         [HttpGet("expansions")]
         public async Task<ActionResult<IEnumerable<Expansion>>> GetExpansions()
         {
-            return await db.Expansions.Include(e => e.Locations).ThenInclude(l => l.Zone).ToListAsync();
+            return await db.Expansions.Include(e => e.Zones).ThenInclude(z => z.Locations).ToListAsync();
         }
 
         [HttpGet("alliances")]
@@ -83,11 +83,11 @@ namespace Server.Controllers
         [HttpGet("expansions/{expansionId}/locations")]
         public async Task<ActionResult<List<Location>>> GetExpansionWithLocations(int expansionId)
         {
-            List<Location>? LocationCount = await db.Locations.Where(l => l.ExpansionId == expansionId).ToListAsync();
+            List<Location>? LocationCount = await db.Locations.Where(l => l.Zone.ExpansionId == expansionId).ToListAsync();
             Random rdm = new Random();
             int AmountToSkip = rdm.Next(0, LocationCount.Count);
             // List<Location>? Locations = await db.Locations.Skip(AmountToSkip).Take(5).Where(l => l.ExpansionId == expansionId).ToListAsync();
-            List<Location>? Locations = await db.Locations.Include(l => l.Zone).Where(l => l.ExpansionId == expansionId).ToListAsync();
+            List<Location>? Locations = await db.Locations.Include(l => l.Zone).Where(l => l.Zone.ExpansionId == expansionId).ToListAsync();
             if (Locations == null)
             {
                 return NotFound();

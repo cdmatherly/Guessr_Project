@@ -32,7 +32,7 @@ const ControlPanel = (props) => {
                         <svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </button>
-                <div id="dropdown" className="z-10 hidden overflow-y-auto bg-gray-700 divide-y divide-gray-100 rounded-lg shadow h-36 sm:h-full sm:max-h-96">
+                <div id="dropdown" className="z-10 hidden -ml-32 overflow-y-auto bg-gray-700 divide-y divide-gray-100 rounded-lg shadow h-36 sm:h-full sm:max-h-80 3xl:max-h-96 scrollbar">
                     <ul className="py-2 text-sm text-gray-200" aria-labelledby="multiLevelDropdownButton">
                     <li>
                         <button onClick={(e) => { changeLayer(tamriel.shortName)} } className="block w-full px-4 py-2 text-center hover:bg-gray-600 hover:text-white">{tamriel.name}</button>

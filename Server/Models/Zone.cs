@@ -17,10 +17,17 @@ namespace Server.Models
         public double Lat { get; set; }
         [Required]
         public double Lng { get; set; }
+        public int AllianceId { get; set; }
+        
+        public Alliance? Alliance { get; set; }
+
+        public int ExpansionId { get; set; }
+
+        public Expansion? Expansion { get; set; }
         
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        [NotMapped]
+        
         public List<Location> Locations { get; set; } = new List<Location>();
     }
 }

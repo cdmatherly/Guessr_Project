@@ -24,12 +24,12 @@ const ExpansionPick = (props) => {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center gap-20 h-screen" style={{fontFamily:"Planewalker"}}>
-            <div className="h-screen w-full absolute top-0 -z-20" style={{backgroundImage:`url(${require(`../static/backgrounds/bg14.jpg`)}`, backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', filter:'grayscale(100%)' }}>
+            <div className="flex flex-col items-center justify-center h-screen gap-20" style={{fontFamily:"Planewalker"}}>
+            <div className="absolute top-0 w-full h-screen -z-20" style={{backgroundImage:`url(${require(`../static/backgrounds/bg14.jpg`)}`, backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', filter:'grayscale(100%)' }}>
             </div>
-            <div className="h-screen w-full absolute top-0 -z-10 bg-yellow-950/80 bg-">
+            <div className="absolute top-0 w-full h-screen -z-10 bg-yellow-950/80 bg-">
             </div>
-                <div className="w-full grid sm:flex justify-center sm:h-1/5 gap-5">
+                <div className="grid justify-center w-full gap-5 sm:flex sm:h-1/5">
                     {isLoading && (
                         <ThreeDots color="rgb(252, 182, 24)" ariaLabel="three-dots-loading"/>
                     )}
@@ -39,7 +39,7 @@ const ExpansionPick = (props) => {
                         )
                     )}
                 </div>
-                <div className="flex justify-center w-1/3 relative">
+                <div className="relative flex justify-center w-1/3">
                     {/* <div className={`flex flex-col gap-3 justify-center absolute top-16 z-20 bg-slate-600 bg-opacity-70 px-2 py-3 rounded-md text-center ` + (gameState.includeBaseGame? ` duration-300 translate-y-0` : ` -translate-y-5 blur-sm opacity-0`)}>
                     {gameState.includeBaseGame && (
                     <>
@@ -61,7 +61,7 @@ const ExpansionPick = (props) => {
                     </>
                     )}
                     </div> */}
-                    <div className="flex justify-center relative w-full">
+                    <div className="relative flex justify-center w-full">
                         { !hasSelection && (
                             <span className="absolute text-red-400 -top-8 whitespace-nowrap">Please select an expansion</span>
                             ) }

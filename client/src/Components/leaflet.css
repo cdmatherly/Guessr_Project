@@ -52,6 +52,11 @@
     -webkit-text-stroke-color: 1px;
     text-shadow: 1px 1px rgba(235, 235, 235, 0.5);
 }
+.text-stroke-points {
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: 1px;
+    text-shadow: 2px 2px rgb(0, 0, 0);
+}
 
 .expansions {
     filter:grayscale(100%);
@@ -88,3 +93,55 @@ html {
     visibility: hidden;
 }
 }
+
+.scale-down-center {
+	animation: scale-down-center 0.2s cubic-bezier(0.950, 0.050, 0.795, 0.035) backwards;
+}
+
+#perfect-score {
+    animation: scale-down-center-perfect 0.2s cubic-bezier(0.950, 0.050, 0.795, 0.035) both;
+    animation-delay: 4.25s;
+}
+
+#result-1 {
+    animation-delay: .35s;
+}
+#result-2 {
+    animation-delay: .7s;
+}
+#result-3 {
+    animation-delay: 1.05s;
+}
+#result-4 {
+    animation-delay: 1.4s;
+}
+#result-5 {
+    animation-delay: 1.75s;
+}
+
+/*
+ * ----------------------------------------
+ * animation scale-down-center
+ * ----------------------------------------
+ */
+@keyframes scale-down-center {
+        0% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+@keyframes scale-down-center-perfect {
+        0% {
+            transform:  scale(2);
+            opacity: 0;
+        }
+        100% {
+            --tw-rotate: 12deg;
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scale(1);
+            opacity: 1;
+        }
+    }

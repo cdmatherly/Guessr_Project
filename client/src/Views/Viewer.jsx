@@ -22,7 +22,9 @@ const Viewer = (props) => {
     const { dispatch, gameState, isLoading, setIsLoading } = props;
     const [distance, setDistance] = useState(null)
     const [points, setPoints] = useState(0)
+    const [zones, setZones] = useState(null)
     const [isMounted, setIsMounted] = useState(false)
+    const [zonesIsLoading, setZonesIsLoading] = useState(true)
     const showDiv = useDelayUnmount(isMounted, 250)
     const [mapSize, setMapSize] = useState({})
 
@@ -30,16 +32,28 @@ const Viewer = (props) => {
     useEffect(() => {
         axios.get(`https://localhost:7078/api/guessr/expansions/`)
             .then((res) => {
-                // console.log(res)
+                console.log(res.data)
                 const selectedExpansions = res.data.filter(expansion => expansion.name == (gameState.includeBaseGame && `Base Game`) || expansion.name == (gameState.includeMorrowind && (`Morrowind`)) || expansion.name == (gameState.includeSummerset && ('Summerset')) )
                 console.log(selectedExpansions)
                 const locations = getRandomLocations(selectedExpansions)
-                // console.log(locations)
+                console.log(locations)
                 dispatch({type: "getLocations", value: locations})
                 setIsLoading(false)
+                axios.get(`https://localhost:7078/api/guessr/zones`)
+                    .then((res) => {
+                        console.log(res.data)
+                        //! Remove filters after adding DC zones
+                        setZones(res.data.filter(z => z.allianceId < 3 || z.zoneId === 1 ))
+                        // setZones(res.data)
+                        setZonesIsLoading(false)
+                        dispatch({type: "addLocationZoneNames", value: res.data})
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             })
             .catch((err) => {
-                // console.log(err)
+                console.log(err)
             })
     }, [])
 
@@ -51,18 +65,23 @@ const Viewer = (props) => {
     }
 
     const getRandomLocations = (expansions) => {
+        console.log(expansions)
         let arr = []
         for (const expansion of expansions){
-            arr = arr.concat(expansion.locations)
+            for (const zone of expansion.zones) {
+                arr = arr.concat(zone.locations)
+            }
         }
         // console.log(arr)
         const locationList = []
         while (locationList.length != 5){
             const rdmIdx = Math.floor(Math.random() * arr.length)
             let location = arr[rdmIdx]
-            // If location already present OR location is from GOLD COAST
+            // If location already present OR location is from unfinished zone
             //! Remove second OR when DC maps complete
-            if (locationList.includes(location) || location.zoneId === 7 || location.zoneId === 8) {
+            const unfinishedZones = [12, 13, 7, 9]
+            if (locationList.includes(location) || unfinishedZones.includes(location.zoneId)) {
+            // if (locationList.includes(location)) {
                 continue
             } else {
                 locationList.push(location)
@@ -79,7 +98,7 @@ const Viewer = (props) => {
 
     return (
         <>
-        {!isLoading && ( 
+        {!isLoading && !zonesIsLoading && ( 
             <div className='flex justify-center w-full'>
                 <ReactPhotoSphereViewer keyboard="always" src={require(`../static/photospheres/${gameState.currentLocation.photosphereUrl}`)} height={'100vh'} width={'100%'} navbar={false} />
                 {gameState.guess && showDiv && (
@@ -110,7 +129,7 @@ const Viewer = (props) => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-8 h-8 bi bi-map-fill text-slate-800" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"/>
                     </svg></button>
-                <Leaflet dispatch={dispatch} gameState={gameState} setDistance={setDistance} setPoints={setPoints} setIsMounted={setIsMounted} mapSize={mapSize} setMapSize={setMapSize}></Leaflet>
+                <Leaflet dispatch={dispatch} gameState={gameState} setDistance={setDistance} setPoints={setPoints} setIsMounted={setIsMounted} mapSize={mapSize} setMapSize={setMapSize} zones={zones}></Leaflet>
             </div>
             )}
         </>

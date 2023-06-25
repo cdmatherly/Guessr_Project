@@ -11,8 +11,8 @@ using Server.Models;
 namespace Server.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230521024439_changeIdToString")]
-    partial class changeIdToString
+    [Migration("20230625005829_RemoveLocationList")]
+    partial class RemoveLocationList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,7 +39,7 @@ namespace Server.Migrations
 
                     b.HasKey("AllianceId");
 
-                    b.ToTable("Alliances");
+                    b.ToTable("alliances");
                 });
 
             modelBuilder.Entity("Server.Models.Expansion", b =>
@@ -51,6 +51,10 @@ namespace Server.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -58,14 +62,53 @@ namespace Server.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("isAvailable")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("ExpansionId");
 
-                    b.ToTable("Expansions");
+                    b.ToTable("expansions");
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
                 {
                     b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Lng")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhotosphereUrl")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LocationId");
+
+                    b.HasIndex("ZoneId");
+
+                    b.ToTable("locations");
+                });
+
+            modelBuilder.Entity("Server.Models.Zone", b =>
+                {
+                    b.Property<int>("ZoneId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -78,38 +121,53 @@ namespace Server.Migrations
                     b.Property<int>("ExpansionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Latitude")
-                        .HasColumnType("int");
+                    b.Property<double>("Lat")
+                        .HasColumnType("double");
 
-                    b.Property<int>("Longitude")
-                        .HasColumnType("int");
+                    b.Property<double>("Lng")
+                        .HasColumnType("double");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ShortName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("LocationId");
+                    b.HasKey("ZoneId");
 
                     b.HasIndex("AllianceId");
 
                     b.HasIndex("ExpansionId");
 
-                    b.ToTable("Locations");
+                    b.ToTable("zones");
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
                 {
+                    b.HasOne("Server.Models.Zone", "Zone")
+                        .WithMany()
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Zone");
+                });
+
+            modelBuilder.Entity("Server.Models.Zone", b =>
+                {
                     b.HasOne("Server.Models.Alliance", "Alliance")
-                        .WithMany("Locations")
+                        .WithMany()
                         .HasForeignKey("AllianceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Server.Models.Expansion", "Expansion")
-                        .WithMany("Locations")
+                        .WithMany("Zones")
                         .HasForeignKey("ExpansionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -119,14 +177,9 @@ namespace Server.Migrations
                     b.Navigation("Expansion");
                 });
 
-            modelBuilder.Entity("Server.Models.Alliance", b =>
-                {
-                    b.Navigation("Locations");
-                });
-
             modelBuilder.Entity("Server.Models.Expansion", b =>
                 {
-                    b.Navigation("Locations");
+                    b.Navigation("Zones");
                 });
 #pragma warning restore 612, 618
         }

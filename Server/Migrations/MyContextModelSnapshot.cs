@@ -37,7 +37,7 @@ namespace Server.Migrations
 
                     b.HasKey("AllianceId");
 
-                    b.ToTable("alliances");
+                    b.ToTable("alliances", (string)null);
                 });
 
             modelBuilder.Entity("Server.Models.Expansion", b =>
@@ -65,7 +65,7 @@ namespace Server.Migrations
 
                     b.HasKey("ExpansionId");
 
-                    b.ToTable("expansions");
+                    b.ToTable("expansions", (string)null);
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
@@ -74,14 +74,8 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AllianceId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("ExpansionId")
-                        .HasColumnType("int");
 
                     b.Property<double>("Lat")
                         .HasColumnType("double");
@@ -105,13 +99,9 @@ namespace Server.Migrations
 
                     b.HasKey("LocationId");
 
-                    b.HasIndex("AllianceId");
-
-                    b.HasIndex("ExpansionId");
-
                     b.HasIndex("ZoneId");
 
-                    b.ToTable("locations");
+                    b.ToTable("locations", (string)null);
                 });
 
             modelBuilder.Entity("Server.Models.Zone", b =>
@@ -120,8 +110,14 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AllianceId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ExpansionId")
+                        .HasColumnType("int");
 
                     b.Property<double>("Lat")
                         .HasColumnType("double");
@@ -142,49 +138,46 @@ namespace Server.Migrations
 
                     b.HasKey("ZoneId");
 
-                    b.ToTable("zones");
+                    b.HasIndex("AllianceId");
+
+                    b.HasIndex("ExpansionId");
+
+                    b.ToTable("zones", (string)null);
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
                 {
+                    b.HasOne("Server.Models.Zone", "Zone")
+                        .WithMany()
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Zone");
+                });
+
+            modelBuilder.Entity("Server.Models.Zone", b =>
+                {
                     b.HasOne("Server.Models.Alliance", "Alliance")
-                        .WithMany("Locations")
+                        .WithMany()
                         .HasForeignKey("AllianceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Server.Models.Expansion", "Expansion")
-                        .WithMany("Locations")
+                        .WithMany("Zones")
                         .HasForeignKey("ExpansionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Server.Models.Zone", "Zone")
-                        .WithMany("Locations")
-                        .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Alliance");
 
                     b.Navigation("Expansion");
-
-                    b.Navigation("Zone");
-                });
-
-            modelBuilder.Entity("Server.Models.Alliance", b =>
-                {
-                    b.Navigation("Locations");
                 });
 
             modelBuilder.Entity("Server.Models.Expansion", b =>
                 {
-                    b.Navigation("Locations");
-                });
-
-            modelBuilder.Entity("Server.Models.Zone", b =>
-                {
-                    b.Navigation("Locations");
+                    b.Navigation("Zones");
                 });
 #pragma warning restore 612, 618
         }

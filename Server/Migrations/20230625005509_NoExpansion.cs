@@ -4,7 +4,7 @@
 
 namespace Server.Migrations
 {
-    public partial class AddedZoneModelCorrectly : Migration
+    public partial class NoExpansion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

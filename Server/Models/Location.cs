@@ -29,12 +29,5 @@ namespace Server.Models
         public int ZoneId { get; set; }
         public Zone? Zone { get; set; }
 
-        public int ExpansionId { get; set; }
-
-        public Expansion? Expansion { get; set; }
-
-        public int AllianceId { get; set; }
-        
-        public Alliance? Alliance { get; set; }
     }
 }

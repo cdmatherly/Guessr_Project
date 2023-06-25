@@ -23,12 +23,17 @@ const gameReducer = (draft, action) => {
             getLocations()
         return
 
+        case "addLocationZoneNames":
+            addLocationZoneNames(action.value)
+        return
+
         case "submitGuess":
             draft.guess = action.value
         return
 
         case "setPoints":
             draft.points += action.value
+            draft.locationPoints.push(action.value)
         return
 
         case "nextLocation":
@@ -52,8 +57,24 @@ const gameReducer = (draft, action) => {
 
         function getLocations() {
             draft.locations = action.value
-            draft.currentLocation = generateLocation();
+            draft.locationImgs = action.value
             // console.log(draft.locations)
+        }
+
+        function addLocationZoneNames(zones){
+            console.log('trying')
+            const updatedLocations = [];
+            for (let location of draft.locations ) {
+                for (let zone of zones) {
+                    if (location.zoneId === zone.zoneId) {
+                        location = {...location, zone: {shortName: zone.shortName}}
+                        updatedLocations.push(location)
+                    }
+                }
+                console.log(updatedLocations)
+            } 
+            draft.locations = updatedLocations
+            draft.currentLocation = generateLocation();
         }
         
         function generateLocation() {
@@ -69,6 +90,8 @@ const gameReducer = (draft, action) => {
     const initialState = {
     points: 0,
     locations: [],
+    locationImgs: [],
+    locationPoints: [],
     currentLocation: null,
     isPlaying: false,
     guess: null,

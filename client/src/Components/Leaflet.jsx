@@ -12,13 +12,12 @@ import { ForDevice, useMediaQuery } from 'media-query-react';
 
 
 const Leaflet = (props) => {
-    const { dispatch, gameState, setDistance, setPoints, setIsMounted, mapSize, setMapSize } = props;
+    const { dispatch, gameState, setDistance, setPoints, setIsMounted, mapSize, setMapSize, zones } = props;
     const mapElement = useRef();
     const [mapLevel, setMapLevel] = useState("tamriel")
     const [position, setPosition] = useState(null)
     const [map, setMap] = useState(null)
-    const [zones, setZones] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const bounds = [[-10,-10], [10, 10]]
     const icon = new Icon({iconUrl: require("../static/maps/marker.webp"), iconSize:[32,32], iconAnchor:[16,33]})
     const isDesktop = useMediaQuery({query: 'min-width: 1024px'})
@@ -40,19 +39,6 @@ const Leaflet = (props) => {
             setTimeout(() => {setPosition(null)}, 1)
         }
     }
-
-    useEffect(() => {
-        axios.get(`https://localhost:7078/api/guessr/zones`)
-            .then((res) => {
-                console.log(res.data)
-                //! Remove filters after adding DC zones
-                setZones(res.data.filter(z => z.zoneId !== 8).filter(z => z.zoneId !== 7))
-                setIsLoading(false)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
 
     const handleMouseEnter = (e) => {
         isDesktop && increaseMapSize(e)
@@ -107,7 +93,7 @@ const Leaflet = (props) => {
                             <span className='block mt-2 text-xl text-center text-stroke'>{findName()}</span>
                         </div>
                     </div>
-                    <SubmitButton position={position} mapLevel={mapLevel} dispatch={dispatch} gameState={gameState} map={map} setDistance={setDistance} setPoints={setPoints} setIsMounted={setIsMounted}></SubmitButton>
+                    <SubmitButton position={position} mapLevel={mapLevel} dispatch={dispatch} gameState={gameState} map={map} setDistance={setDistance} setPoints={setPoints} setIsMounted={setIsMounted} zones={zones}></SubmitButton>
                 </div>
             </div>
         </> )

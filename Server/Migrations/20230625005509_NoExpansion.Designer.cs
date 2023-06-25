@@ -11,8 +11,8 @@ using Server.Models;
 namespace Server.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230602211238_AddedZoneModelCorrectly")]
-    partial class AddedZoneModelCorrectly
+    [Migration("20230625005509_NoExpansion")]
+    partial class NoExpansion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,13 +76,10 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AllianceId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ExpansionId")
+                    b.Property<int?>("ExpansionId")
                         .HasColumnType("int");
 
                     b.Property<double>("Lat")
@@ -102,20 +99,14 @@ namespace Server.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("ZoneId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("ZoneId1")
+                    b.Property<int>("ZoneId")
                         .HasColumnType("int");
 
                     b.HasKey("LocationId");
 
-                    b.HasIndex("AllianceId");
-
                     b.HasIndex("ExpansionId");
 
-                    b.HasIndex("ZoneId1");
+                    b.HasIndex("ZoneId");
 
                     b.ToTable("locations");
                 });
@@ -126,14 +117,20 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AllianceId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Lat")
+                    b.Property<int>("ExpansionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Lng")
-                        .HasColumnType("int");
+                    b.Property<double>("Lat")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Lng")
+                        .HasColumnType("double");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -148,45 +145,48 @@ namespace Server.Migrations
 
                     b.HasKey("ZoneId");
 
+                    b.HasIndex("AllianceId");
+
+                    b.HasIndex("ExpansionId");
+
                     b.ToTable("zones");
                 });
 
             modelBuilder.Entity("Server.Models.Location", b =>
                 {
-                    b.HasOne("Server.Models.Alliance", "Alliance")
+                    b.HasOne("Server.Models.Expansion", null)
                         .WithMany("Locations")
+                        .HasForeignKey("ExpansionId");
+
+                    b.HasOne("Server.Models.Zone", "Zone")
+                        .WithMany()
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Zone");
+                });
+
+            modelBuilder.Entity("Server.Models.Zone", b =>
+                {
+                    b.HasOne("Server.Models.Alliance", "Alliance")
+                        .WithMany()
                         .HasForeignKey("AllianceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Server.Models.Expansion", "Expansion")
-                        .WithMany("Locations")
+                        .WithMany()
                         .HasForeignKey("ExpansionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Server.Models.Zone", "Zone")
-                        .WithMany("Locations")
-                        .HasForeignKey("ZoneId1");
-
                     b.Navigation("Alliance");
 
                     b.Navigation("Expansion");
-
-                    b.Navigation("Zone");
-                });
-
-            modelBuilder.Entity("Server.Models.Alliance", b =>
-                {
-                    b.Navigation("Locations");
                 });
 
             modelBuilder.Entity("Server.Models.Expansion", b =>
-                {
-                    b.Navigation("Locations");
-                });
-
-            modelBuilder.Entity("Server.Models.Zone", b =>
                 {
                     b.Navigation("Locations");
                 });

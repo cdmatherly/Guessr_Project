@@ -1,11 +1,11 @@
 import { useSpring, animated } from "react-spring"
 const  AnimatedNumber = (props) => {
-    const { num, className } = props;
+    const { num, className, delay=500 } = props;
     
     const { number } = useSpring({
         from: { number: 0 },
         number: num,
-        delay: 500,
+        delay: delay,
         config: { mass: 1.75, tension: 20, friction: 10}
     })
     
