@@ -79,7 +79,7 @@ const Viewer = (props) => {
             let location = arr[rdmIdx]
             // If location already present OR location is from unfinished zone
             //! Remove second OR when DC maps complete
-            const unfinishedZones = [12, 13, 7, 9]
+            const unfinishedZones = [7, 8, 9, 10, 11, 12, 13, 14, 15]
             if (locationList.includes(location) || unfinishedZones.includes(location.zoneId)) {
             // if (locationList.includes(location)) {
                 continue
